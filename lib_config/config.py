@@ -42,7 +42,16 @@ class Config:
             input(f"Fill in desired section in {self.path}, then press enter")
             return self.read(section, tag)
 
+    def get_creds(self, section: str, tags: list):
+        return [self.read(section, tag) for tag in tags]
+
     def discord_creds(self):
         """Returns email and password"""
 
-        return [self.read("Discord", tag) for tag in ["email", "password"]]
+        return self.get_creds("Discord", ["email", "password"])
+
+    def webull_creds(self):
+        return self.get_creds("Webull", ["email", "trade_token", "password"])
+
+    def webull_email_creds(self):
+        return self.get_creds("Email", ["email", "password"])
