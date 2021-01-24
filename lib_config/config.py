@@ -45,6 +45,15 @@ class Config:
     def get_creds(self, section: str, tags: list):
         return [self.read(section, tag) for tag in tags]
 
+##############################################
+### Random Credentials specific to my apps ###
+##############################################
+
+    def blackboard_creds(self):
+        """Returns netid and password"""
+
+        return self.get_creds("Blackboard", ["netid", "password"])
+
     def discord_creds(self):
         """Returns email and password"""
 
