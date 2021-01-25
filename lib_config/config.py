@@ -64,3 +64,6 @@ class Config:
 
     def webull_email_creds(self):
         return self.get_creds("Email", ["email", "password"])
+
+    def ice_man_creds(self):
+        return self.get_creds("Ice", ["email", "password"])
