@@ -11,6 +11,7 @@ setup(
     download_url='https://github.com/jfuruness/lib_config.git',
     keywords=['Furuness', 'Config', 'Wrapper', 'ETL', 'Helper Functions'],
     install_requires=[
+        'lib_utils',
         'pytest',
         ],
     classifiers=[
