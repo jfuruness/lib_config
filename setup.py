@@ -4,13 +4,14 @@ import sys
 setup(
     name='lib_config',
     packages=find_packages(),
-    version='0.0.0',
+    version='0.1.0',
     author='Justin Furuness',
     author_email='jfuruness@gmail.com',
     url='https://github.com/jfuruness/lib_config.git',
     download_url='https://github.com/jfuruness/lib_config.git',
     keywords=['Furuness', 'Config', 'Wrapper', 'ETL', 'Helper Functions'],
     install_requires=[
+        'pytest',
         ],
     classifiers=[
         'Environment :: Console',

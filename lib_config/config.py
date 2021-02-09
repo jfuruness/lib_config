@@ -1,15 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-"""This package contains a config file"""
-
-__authors__ = ["Justin Furuness"]
-__credits__ = ["Justin Furuness"]
-__Lisence__ = "BSD"
-__maintainer__ = "Justin Furuness"
-__email__ = "jfuruness@gmail.com"
-__status__ = "Development"
-
 import os
 
 from configparser import NoSectionError, ConfigParser as SCP
@@ -17,7 +5,11 @@ from configparser import NoSectionError, ConfigParser as SCP
 from lib_utils import utils
 
 class Config:
+    """Config wrapper for storing and retrieving passwords and other info"""
+
     def __init__(self, package="custom_config"):
+        """Creates config if not exists"""
+
         self.path = f"/etc/{package}.conf"
         if not os.path.exists(self.path):
             try:
@@ -27,6 +19,8 @@ class Config:
                 utils.run_cmds([f"sudo touch {self.path}",
                                 f"sudo chmod -R 777 {self.path}"])
     def write_section(self, section: str, kwargs: dict):
+        """Writes section in config"""
+
         _config = SCP()
         _config.read(self.path)
         _config[section] = kwargs
@@ -34,6 +28,8 @@ class Config:
             _config.write(f)
 
     def read(self, section: str, tag: str, raw: bool = True):
+        """Reads section, allows user to write if not exists"""
+
         try:
             _conf = SCP()
             _conf.read(self.path)
@@ -43,6 +39,8 @@ class Config:
             return self.read(section, tag)
 
     def get_creds(self, section: str, tags: list):
+        """Returns credentials for a given section"""
+
         return [self.read(section, tag) for tag in tags]
 
 ##############################################
