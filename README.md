@@ -10,8 +10,6 @@ This package contains helper functions for accessing a config file. Basically a 
 * [History](#history)
 * [Credits](#credits)
 * [Licence](#license)
-* [Todo and Possible Future Improvements](#todopossible-future-improvements)
-* [FAQ](#faq)
 
 ## Package Description
 * [lib\_config](#lib_config)
@@ -105,10 +103,3 @@ Credits to Drew Monroe and the UITS team for inspiring this library.
 * [lib\_config](#lib_config)
 
 BSD License (see license file)
-
-## TODO/Possible Future Improvements
-* [lib\_config](#lib_config)
-
-
-## FAQ
-* [lib\_config](#lib_config)
