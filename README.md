@@ -92,6 +92,7 @@ pip3 install lib_config --install-option test
 
 ## History
 * [lib\_config](#lib_config)
+* 0.1.1 Deps update
 * 0.1.0 First production release
 
 ## Credits
