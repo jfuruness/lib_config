@@ -2,7 +2,7 @@ import os
 
 from configparser import NoSectionError, ConfigParser as SCP
 
-from lib_utils import utils
+from lib_utils import helper_funcs
 
 class Config:
     """Config wrapper for storing and retrieving passwords and other info"""
@@ -16,8 +16,8 @@ class Config:
                 with open(self.path, "w+") as f:
                     pass
             except PermissionError as e:
-                utils.run_cmds([f"sudo touch {self.path}",
-                                f"sudo chmod -R 777 {self.path}"])
+                helper_funcs.run_cmds([f"sudo touch {self.path}",
+                                       f"sudo chmod -R 777 {self.path}"])
     def write_section(self, section: str, kwargs: dict):
         """Writes section in config"""
 

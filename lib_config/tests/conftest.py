@@ -1,4 +1,4 @@
-from lib_utils import utils
+from lib_utils import helper_funcs
 import pytest
 
 from .test_config import Test_Config
@@ -10,7 +10,7 @@ def config():
     """Initializes a config file. Gets the path. Deletes and reinits"""
 
     config = Config(package=Test_Config.test_config_package)
-    utils.run_cmds(f"sudo rm {config.path}")
+    helper_funcs.run_cmds(f"sudo rm {config.path}")
     config = Config(package=Test_Config.test_config_package)
     yield config
-    utils.run_cmds(f"sudo rm {config.path}")
+    helper_funcs.run_cmds(f"sudo rm {config.path}")
