@@ -60,7 +60,7 @@ class Config:
         return self.get_creds("Discord", ["email", "password"])
 
     def webull_creds(self):
-        return self.get_creds("Webull", ["email", "trade_token", "password"])
+        return self.get_creds("Webull", ["email", "trade_token", "password", "security_q"])
 
     def webull_email_creds(self):
         return self.get_creds("Email", ["email", "password"])
