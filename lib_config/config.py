@@ -1,67 +1,52 @@
+from configparser import RawConfigParser
 import os
 
-from configparser import NoSectionError, ConfigParser as SCP
+from lib_utils.file_funcs import makedirs
 
-from lib_utils import helper_funcs
 
 class Config:
-    """Config wrapper for storing and retrieving passwords and other info"""
+    """Wrapper around RawConfigParser
 
-    def __init__(self, package="custom_config"):
-        """Creates config if not exists"""
+    originally from lib_bgp_data"""
 
-        self.path = f"/etc/{package}.conf"
-        if not os.path.exists(self.path):
-            try:
-                with open(self.path, "w+") as f:
-                    pass
-            except PermissionError as e:
-                helper_funcs.run_cmds([f"sudo touch {self.path}",
-                                       f"sudo chmod -R 777 {self.path}"])
-    def write_section(self, section: str, kwargs: dict):
-        """Writes section in config"""
+    default_path = "/etc/config/main.ini"
 
-        _config = SCP()
-        _config.read(self.path)
-        _config[section] = kwargs
-        with open(self.path, "a") as f:
-            _config.write(f)
+    def __init__(self, write=True, path=None):
+        """Initialize it with a specific section to work with"""
 
-    def read(self, section: str, tag: str, raw: bool = True):
-        """Reads section, allows user to write if not exists"""
+        self.path = path if path else self.default_path
+        self.write = write
+        self._conf = None
+        # Makes the directory
+        makedirs(self._dir)
 
-        try:
-            _conf = SCP()
-            _conf.read(self.path)
-            return _conf.get(section, tag, raw=raw)
-        except (NoSectionError, AttributeError) as e:
-            input(f"Fill in desired section in {self.path}, then press enter")
-            return self.read(section, tag)
+    def __enter__(self) -> RawConfigParser:
+        """Enters context manager, returns a dict like object"""
 
-    def get_creds(self, section: str, tags: list):
-        """Returns credentials for a given section"""
+        self._conf = self._get_conf_dict()
+        return self._conf
 
-        return [self.read(section, tag) for tag in tags]
+    def __exit__(self, _type, _value, _traceback):
+        """Exits context manager"""
 
-##############################################
-### Random Credentials specific to my apps ###
-##############################################
+        if self.write:
+            self._write_conf()
 
-    def blackboard_creds(self):
-        """Returns netid and password"""
+    def _get_conf_dict(self) -> RawConfigParser:
+        """Reads in the config as a dict like object"""
 
-        return self.get_creds("Blackboard", ["netid", "password"])
+        conf = RawConfigParser()
+        conf.read(self.path)
+        return conf
 
-    def discord_creds(self):
-        """Returns email and password"""
+    def _write_conf(self):
+        """Writes the config"""
 
-        return self.get_creds("Discord", ["email", "password"])
+        with open(self.path, "w+") as config_file:
+            self._conf.write(config_file)
 
-    def webull_creds(self):
-        return self.get_creds("Webull", ["email", "trade_token", "password", "security_q"])
+    @property
+    def _dir(self) -> str:
+        """Returns the directory for the path of the config file"""
 
-    def webull_email_creds(self):
-        return self.get_creds("Email", ["email", "password"])
-
-    def ice_man_creds(self):
-        return self.get_creds("Ice", ["email", "password"])
+        return os.path.split(self.path)[0]
