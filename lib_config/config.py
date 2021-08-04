@@ -9,7 +9,7 @@ class Config:
 
     originally from lib_bgp_data"""
 
-    default_path = "/etc/config/main.ini"
+    default_path = "/etc/main/main.ini"
 
     def __init__(self, write=True, path=None):
         """Initialize it with a specific section to work with"""
