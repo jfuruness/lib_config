@@ -5,7 +5,7 @@ from lib_utils.file_funcs import makedirs
 
 
 class Config:
-    """Wrapper around RawConfigParser
+    """Wrapper around RawConfigParser that also deals with db conn
 
     originally from lib_bgp_data"""
 
