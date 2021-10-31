@@ -1,7 +1,6 @@
 from configparser import RawConfigParser
 import os
-
-from lib_utils.file_funcs import makedirs
+from pathlib import Path
 
 
 class Config:
@@ -9,7 +8,7 @@ class Config:
 
     originally from lib_bgp_data"""
 
-    default_path = "/etc/main/main.ini"
+    default_path = Path("/etc/main/main.ini")
 
     def __init__(self, write=True, path=None):
         """Initialize it with a specific section to work with"""
@@ -18,7 +17,7 @@ class Config:
         self.write = write
         self._conf = None
         # Makes the directory
-        makedirs(self._dir)
+        self.path.parent.mkdirs(parent=True)
 
     def __enter__(self) -> RawConfigParser:
         """Enters context manager, returns a dict like object"""
