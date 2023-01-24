@@ -17,7 +17,7 @@ class Config:
         self.write = write
         self._conf = None
         # Makes the directory
-        self.path.parent.mkdirs(parent=True)
+        self.path.parent.mkdir(parents=True, exist_ok=True)
 
     def __enter__(self) -> RawConfigParser:
         """Enters context manager, returns a dict like object"""
